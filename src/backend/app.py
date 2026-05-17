@@ -8,12 +8,13 @@ CORS(app)
 
 def get_db():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="aryan19",
-        database="smartcart_ai"
+        host=os.environ.get("DB_HOST"),
+        port=int(os.environ.get("DB_PORT", 3306)),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASSWORD"),
+        database=os.environ.get("DB_NAME"),
+        ssl_disabled=False
     )
-
 def ensure_user(cursor):
     cursor.execute("SELECT id FROM users WHERE id = 1")
     user = cursor.fetchone()
@@ -478,4 +479,4 @@ def images(filename):
     return send_from_directory(image_folder, filename)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000, use_reloader=False)
