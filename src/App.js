@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 
-const API = "";
+const API =
+  process.env.REACT_APP_API_URL ||
+  "https://smartcart-ai-production.up.railway.app";
 
 function App() {
   const [products, setProducts] = useState([]);
